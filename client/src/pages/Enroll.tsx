@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
+  CircularProgress,
   Typography,
   TextField,
   MenuItem,
@@ -80,6 +81,7 @@ const Enroll: React.FC = () => {
   const [oppsError, setOppsError] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState(0);
   const [dob, setDob] = useState<Date | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     middleName: "",
@@ -189,6 +191,8 @@ const Enroll: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (isSubmitting) return;
+
     // Final validation before sending
     if (!validateStep(activeStep)) {
       alert("Please complete all required fields and upload necessary files.");
@@ -229,6 +233,7 @@ const Enroll: React.FC = () => {
     if (formData.otherFile) form.append("other_file", formData.otherFile);
 
     try {
+      setIsSubmitting(true);
       const response = await axios.post(
         `${API_BASE}/api/applications/`,
         form,
@@ -263,6 +268,8 @@ const Enroll: React.FC = () => {
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("There was an error submitting the form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -630,13 +637,14 @@ const Enroll: React.FC = () => {
             <Box
               sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
             >
-              <Button disabled={activeStep === 0} onClick={handleBack}>
+              <Button disabled={activeStep === 0 || isSubmitting} onClick={handleBack}>
                 Back
               </Button>
               {activeStep === steps.length - 1 ? (
                 <Button
                   type="submit"
                   variant="contained"
+                  disabled={isSubmitting}
                   sx={{
                     bgcolor: orange,
                     px: 4,
@@ -646,11 +654,19 @@ const Enroll: React.FC = () => {
                     "&:hover": { bgcolor: "#e67600" },
                   }}
                 >
-                  Submit
+                  {isSubmitting ? (
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <CircularProgress size={18} sx={{ color: "#fff" }} />
+                      <span>Submitting…</span>
+                    </Box>
+                  ) : (
+                    "Submit"
+                  )}
                 </Button>
               ) : (
                 <Button
                   variant="contained"
+                  disabled={isSubmitting}
                   sx={{
                     bgcolor: orange,
                     px: 4,
