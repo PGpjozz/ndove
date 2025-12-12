@@ -162,7 +162,7 @@ const Contact: React.FC = () => {
                     variant="body2"
                     sx={{ color: black, maxWidth: 260 }}
                   >
-                    Soweto, Johannesburg, South Africa
+                    Stand 298, Mphambo Village, R81 Main Road, Malamulele, 0982
                   </Typography>
                 </Box>
               </Box>

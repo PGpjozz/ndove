@@ -181,7 +181,7 @@ const Footer: React.FC = () => (
             <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
               Contact Us
             </Typography>
-            <Typography>51 Harrison Street, Johannesburg, 2001</Typography>
+            <Typography>Stand 298, Mphambo Village, R81 Main Road, Malamulele, 0982</Typography>
             <Typography sx={{ mt: 1 }}>011 024 9246</Typography>
             <Typography>061 035 8120</Typography>
             <Typography sx={{ mt: 1 }}>info@enerhu.co.za</Typography>
