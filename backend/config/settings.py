@@ -174,7 +174,6 @@ if USE_S3:
         "OPTIONS": {
             "bucket_name": AWS_STORAGE_BUCKET_NAME,
             "location": AWS_LOCATION,
-            "default_acl": "public-read",
         },
     }
 
