@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 
 _allowed_hosts_env = os.environ.get("DJANGO_ALLOWED_HOSTS", "")
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0","ndove.vercel.app"]
 if _allowed_hosts_env.strip():
     ALLOWED_HOSTS = [h.strip() for h in _allowed_hosts_env.split(",") if h.strip()]
 
@@ -186,6 +186,7 @@ _cors_allowed_origins_env = os.environ.get("CORS_ALLOWED_ORIGINS", "")
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    "https://ndove.vercel.app",
 ]
 if _cors_allowed_origins_env.strip():
     CORS_ALLOWED_ORIGINS = [
@@ -196,6 +197,8 @@ _csrf_trusted_origins_env = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:5173',
+    "https://ndove.vercel.app",
+    
 ]
 if _csrf_trusted_origins_env.strip():
     CSRF_TRUSTED_ORIGINS = [
