@@ -741,6 +741,9 @@ const AdminDashboard: React.FC = () => {
                     <strong>ID Number:</strong> {applicationDetails.id_number || "-"}
                   </Typography>
                   <Typography>
+                    <strong>Phone:</strong> {applicationDetails.phone || "-"}
+                  </Typography>
+                  <Typography>
                     <strong>Type:</strong> {applicationDetails.opportunity_type || "-"}
                   </Typography>
                   <Typography>
@@ -811,6 +814,9 @@ const AdminDashboard: React.FC = () => {
                   </Typography>
                   <Typography>
                     <strong>ID Number:</strong> {learnerDetails.id_number || "-"}
+                  </Typography>
+                  <Typography>
+                    <strong>Phone:</strong> {learnerDetails.phone || "-"}
                   </Typography>
                   <Typography>
                     <strong>Status:</strong> {learnerDetails.status}

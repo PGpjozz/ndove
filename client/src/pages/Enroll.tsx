@@ -94,6 +94,7 @@ const Enroll: React.FC = () => {
     homeLanguage: "",
     socioEconomicStatus: "",
     disabilityStatus: "",
+    phone: "",
     homeAddress: "",
     province: "",
     highestQualification: "",
@@ -175,7 +176,7 @@ const Enroll: React.FC = () => {
           formData.disabilityStatus
         );
       case 2:
-        return formData.homeAddress && formData.province;
+        return formData.phone && formData.homeAddress && formData.province;
       case 3:
         return (
           formData.highestQualification &&
@@ -222,6 +223,7 @@ const Enroll: React.FC = () => {
     form.append("home_language", formData.homeLanguage);
     form.append("socio_economic_status", formData.socioEconomicStatus);
     form.append("disability_status", formData.disabilityStatus);
+    form.append("phone", formData.phone);
     form.append("home_address", formData.homeAddress);
     form.append("province", formData.province);
     form.append("highest_qualification", formData.highestQualification);
@@ -258,6 +260,7 @@ const Enroll: React.FC = () => {
         homeLanguage: "",
         socioEconomicStatus: "",
         disabilityStatus: "",
+        phone: "",
         homeAddress: "",
         province: "",
         highestQualification: "",
@@ -432,6 +435,15 @@ const Enroll: React.FC = () => {
       case 2:
         return (
           <Stack spacing={2}>
+            <TextField
+              label="Phone Number"
+              name="phone"
+              fullWidth
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              inputMode="tel"
+            />
             <TextField
               label="Home Address"
               name="homeAddress"

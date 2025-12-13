@@ -49,6 +49,8 @@ class ApplicationViewSet(viewsets.ModelViewSet):
                 middle_name=app.middle_name,
                 last_name=app.last_name,
                 dob=app.dob,
+
+                phone=app.phone,
                 id_number=app.id_number,
                 equity_code=app.equity_code,
                 nationality=app.nationality,

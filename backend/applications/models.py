@@ -18,6 +18,8 @@ class Application(models.Model):
     last_name = models.CharField(max_length=100, blank=True, default="")
     dob = models.DateField(blank=True, null=True)
 
+    phone = models.CharField(max_length=50, blank=True, default="")
+
     id_number = models.CharField(max_length=50, blank=True, default="")
     equity_code = models.CharField(max_length=50, blank=True, default="")
     nationality = models.CharField(max_length=100, blank=True, default="")
@@ -69,6 +71,8 @@ class Learner(models.Model):
     middle_name = models.CharField(max_length=100, blank=True, default="")
     last_name = models.CharField(max_length=100, blank=True, default="")
     dob = models.DateField(blank=True, null=True)
+
+    phone = models.CharField(max_length=50, blank=True, default="")
 
     id_number = models.CharField(max_length=50, blank=True, default="")
     equity_code = models.CharField(max_length=50, blank=True, default="")
