@@ -46,6 +46,10 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import MenuIcon from "@mui/icons-material/Menu";
 import ApplicationsSection from "./sections/ApplicationsSection";
 import LearnersSection from "./sections/LearnersSection";
+import OpportunitiesSection from "./sections/OpportunitiesSection";
+import GallerySection from "./sections/GallerySection";
+import SettingsSection from "./sections/SettingsSection";
+import EnquiriesSection from "./sections/EnquiriesSection";
 
 const menuItems = [
   { label: "Pending Applications", icon: <AssignmentIcon fontSize="small" /> },
@@ -496,498 +500,66 @@ const AdminDashboard: React.FC = () => {
         return null;
       case "Internships / Learnerships":
         return (
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h5" mb={2}>
-              Post Internships / Learnerships
-            </Typography>
-            {loadingOpps && <Typography>Loading opportunities...</Typography>}
-            {oppsError && (
-              <Typography color="error" mb={2}>
-                {oppsError}
-              </Typography>
-            )}
-            <Box
-              component="form"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                try {
-                  const res = await axios.post(
-                    `${API_BASE}/api/programs/`,
-                    {
-                      title: newOppTitle,
-                      type: newOppType,
-                      description: newOppDescription,
-                      is_active: true,
-                    },
-                    { headers: authHeaders() }
-                  );
-                  setOpportunities((prev) => [res.data, ...prev]);
-                  setNewOppTitle("");
-                  setNewOppType("internship");
-                  setNewOppDescription("");
-                } catch (err) {
-                  if (handleAuthError(err)) return;
-                  console.error("Error creating opportunity", err);
-                  notify("Could not create opportunity.", "error");
-                }
-              }}
-              sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 1.5 }}
-            >
-              <Typography variant="subtitle1" fontWeight={600}>
-                Add New Opportunity
-              </Typography>
-              <Grid container spacing={1}>
-                <Grid item xs={12} md={6}>
-                  <input
-                    type="text"
-                    placeholder="Title"
-                    value={newOppTitle}
-                    onChange={(e) => setNewOppTitle(e.target.value)}
-                    style={{
-                      width: "100%",
-                      padding: 8,
-                      borderRadius: 4,
-                      border: "1px solid #ccc",
-                    }}
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <select
-                    value={newOppType}
-                    onChange={(e) => setNewOppType(e.target.value)}
-                    style={{
-                      width: "100%",
-                      padding: 8,
-                      borderRadius: 4,
-                      border: "1px solid #ccc",
-                    }}
-                  >
-                    <option value="internship">Internship</option>
-                    <option value="learnership">Learnership</option>
-                  </select>
-                </Grid>
-              </Grid>
-              <textarea
-                placeholder="Description"
-                value={newOppDescription}
-                onChange={(e) => setNewOppDescription(e.target.value)}
-                style={{
-                  width: "100%",
-                  padding: 8,
-                  borderRadius: 4,
-                  border: "1px solid #ccc",
-                  minHeight: 80,
-                }}
-                required
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Save Opportunity
-              </Button>
-            </Box>
-            {!loadingOpps && !oppsError && opportunities.length === 0 && (
-              <Typography sx={{ mt: 2 }}>No opportunities yet.</Typography>
-            )}
-            {!loadingOpps && !oppsError && opportunities.length > 0 && (
-              <Box sx={{ mt: 3 }}>
-                {opportunities.map((opp) => (
-                  <Box
-                    key={opp.id}
-                    sx={{ borderBottom: "1px solid #eee", py: 1, mb: 1 }}
-                  >
-                    <Typography fontWeight={600}>{opp.title}</Typography>
-                    <Typography variant="body2">Type: {opp.type}</Typography>
-                    <Typography variant="body2" sx={{ mb: 1 }}>
-                      {opp.description}
-                    </Typography>
-                    <Button
-                      size="small"
-                      color="error"
-                      onClick={() =>
-                        openConfirm(
-                          "Delete opportunity",
-                          "Are you sure you want to delete this opportunity?",
-                          async () => {
-                            try {
-                              await axios.delete(
-                                `${API_BASE}/api/programs/${opp.id}/`,
-                                { headers: authHeaders() }
-                              );
-                              setOpportunities((prev) =>
-                                prev.filter((o) => o.id !== opp.id)
-                              );
-                            } catch (err) {
-                              if (handleAuthError(err)) return;
-                              console.error("Error deleting opportunity", err);
-                              notify("Could not delete opportunity.", "error");
-                            }
-                          }
-                        )
-                      }
-                    >
-                      Delete
-                    </Button>
-                  </Box>
-                ))}
-              </Box>
-            )}
-          </Paper>
+          <OpportunitiesSection
+            loadingOpps={loadingOpps}
+            oppsError={oppsError}
+            opportunities={opportunities}
+            newOppTitle={newOppTitle}
+            setNewOppTitle={setNewOppTitle}
+            newOppType={newOppType}
+            setNewOppType={setNewOppType}
+            newOppDescription={newOppDescription}
+            setNewOppDescription={setNewOppDescription}
+            setOpportunities={setOpportunities}
+            notify={notify}
+            openConfirm={openConfirm}
+            authHeaders={authHeaders}
+            handleAuthError={handleAuthError}
+          />
         );
       case "Gallery":
         return (
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h5" mb={2}>
-              Gallery Posts
-            </Typography>
-            {loadingGallery && (
-              <Box sx={{ py: 6, display: "flex", justifyContent: "center" }}>
-                <CircularProgress />
-              </Box>
-            )}
-            {galleryError && (
-              <Typography color="error" mb={2}>
-                {galleryError}
-              </Typography>
-            )}
-            <Dialog
-              open={Boolean(selectedGalleryPost)}
-              onClose={() => setSelectedGalleryPost(null)}
-              maxWidth="sm"
-              fullWidth
-            >
-              {selectedGalleryPost && (
-                <>
-                  <DialogTitle>
-                    {selectedGalleryPost.title || selectedGalleryPost.caption || "Gallery"}
-                  </DialogTitle>
-                  <DialogContent>
-                    {selectedGalleryPost.image && (
-                      <Box
-                        sx={{
-                          mb: 2,
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <img
-                          src={resolveFileUrl(selectedGalleryPost.image) || undefined}
-                          alt={
-                            selectedGalleryPost.title ||
-                            selectedGalleryPost.caption ||
-                            "Gallery image"
-                          }
-                          style={{ maxWidth: "100%", borderRadius: 4 }}
-                        />
-                      </Box>
-                    )}
-                    {selectedGalleryPost.created_at && (
-                      <Typography
-                        variant="caption"
-                        color="text.secondary"
-                        sx={{ display: "block", mb: 1 }}
-                      >
-                        {new Date(selectedGalleryPost.created_at).toLocaleString()}
-                      </Typography>
-                    )}
-                    {selectedGalleryPost.caption && (
-                      <Typography variant="body2">{selectedGalleryPost.caption}</Typography>
-                    )}
-                  </DialogContent>
-                </>
-              )}
-            </Dialog>
-            <Box
-              component="form"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                if (!newGalleryImage) {
-                  notify("Please choose an image.", "warning");
-                  return;
-                }
-                const formData = new FormData();
-                formData.append("title", newGalleryCaption);
-                formData.append("caption", newGalleryBody);
-                formData.append("image", newGalleryImage);
-                try {
-                  const res = await axios.post(
-                    `${API_BASE}/api/gallery/`,
-                    formData,
-                    {
-                      headers: {
-                        ...authHeaders(),
-                        "Content-Type": "multipart/form-data",
-                      },
-                    }
-                  );
-                  setGalleryPosts((prev) => [res.data, ...prev]);
-                  setNewGalleryCaption("");
-                  setNewGalleryBody("");
-                  setNewGalleryImage(null);
-                  notify("Gallery post saved.", "success");
-                } catch (err) {
-                  console.error("Error creating gallery post", err);
-                  notify("Could not create gallery post.", "error");
-                }
-              }}
-              sx={{ mb: 3, display: "flex", flexDirection: "column", gap: 1.5 }}
-            >
-              <Typography variant="subtitle1" fontWeight={600}>
-                Add New Gallery Post
-              </Typography>
-              <TextField
-                label="Title"
-                size="small"
-                value={newGalleryCaption}
-                onChange={(e) => setNewGalleryCaption(e.target.value)}
-                required
-              />
-              <TextField
-                label="Caption"
-                size="small"
-                value={newGalleryBody}
-                onChange={(e) => setNewGalleryBody(e.target.value)}
-                multiline
-                minRows={3}
-                required
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
-                  setNewGalleryImage(file);
-                }}
-                required
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Save Gallery Post
-              </Button>
-            </Box>
-            {!loadingGallery && !galleryError && galleryPosts.length === 0 && (
-              <Typography>No gallery posts yet.</Typography>
-            )}
-            {!loadingGallery && !galleryError && galleryPosts.length > 0 && (
-              <Grid container spacing={2}>
-                {galleryPosts.map((post) => (
-                  <Grid item xs={12} sm={6} md={4} key={post.id}>
-                    <Paper
-                      variant="outlined"
-                      sx={{ p: 2, borderRadius: 2, height: "100%" }}
-                    >
-                      {post.image && (
-                        <Box
-                          sx={{
-                            mb: 1.5,
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <img
-                            src={resolveFileUrl(post.image) || undefined}
-                            alt={post.title || post.caption || "Gallery image"}
-                            style={{
-                              maxWidth: "100%",
-                              maxHeight: 160,
-                              objectFit: "cover",
-                              borderRadius: 4,
-                            }}
-                          />
-                        </Box>
-                      )}
-                      <Typography fontWeight={600} sx={{ mb: 0.5 }}>
-                        {post.title || post.caption}
-                      </Typography>
-                      {post.created_at && (
-                        <Typography
-                          variant="caption"
-                          color="text.secondary"
-                          sx={{ display: "block", mb: 1 }}
-                        >
-                          {new Date(post.created_at).toLocaleString()}
-                        </Typography>
-                      )}
-                      <Box sx={{ mt: 1, display: "flex", gap: 1, flexWrap: "wrap", alignItems: "center" }}>
-                        <Button size="small" variant="text" onClick={() => setSelectedGalleryPost(post)}>
-                          View
-                        </Button>
-                        <Button
-                          size="small"
-                          color="error"
-                          onClick={() =>
-                            openConfirm(
-                              "Delete gallery post",
-                              "Are you sure you want to delete this gallery post?",
-                              async () => {
-                                try {
-                                  await axios.delete(
-                                    `${API_BASE}/api/gallery/${post.id}/`,
-                                    { headers: authHeaders() }
-                                  );
-                                  setGalleryPosts((prev) =>
-                                    prev.filter((p) => p.id !== post.id)
-                                  );
-                                  notify("Gallery post deleted successfully", "success");
-                                } catch (err) {
-                                  if (handleAuthError(err)) return;
-                                  console.error(
-                                    "Error deleting gallery post",
-                                    err
-                                  );
-                                  notify("Could not delete gallery post.", "error");
-                                }
-                              }
-                            )
-                          }
-                        >
-                          Delete
-                        </Button>
-                      </Box>
-                    </Paper>
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </Paper>
+          <GallerySection
+            loadingGallery={loadingGallery}
+            galleryError={galleryError}
+            galleryPosts={galleryPosts}
+            selectedGalleryPost={selectedGalleryPost}
+            setSelectedGalleryPost={setSelectedGalleryPost}
+            newGalleryCaption={newGalleryCaption}
+            setNewGalleryCaption={setNewGalleryCaption}
+            newGalleryBody={newGalleryBody}
+            setNewGalleryBody={setNewGalleryBody}
+            newGalleryImage={newGalleryImage}
+            setNewGalleryImage={setNewGalleryImage}
+            setGalleryPosts={setGalleryPosts}
+            notify={notify}
+            openConfirm={openConfirm}
+            authHeaders={authHeaders}
+            handleAuthError={handleAuthError}
+            resolveFileUrl={resolveFileUrl}
+          />
         );
       case "Settings":
         return (
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h5" mb={2}>
-              Admin Settings
-            </Typography>
-            <Typography sx={{ mb: 2 }}>
-              Upload the latest company profile PDF used on the public About
-              page.
-            </Typography>
-            {profileError && (
-              <Typography color="error" sx={{ mb: 2 }}>
-                {profileError}
-              </Typography>
-            )}
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle1" fontWeight={600} sx={{ mb: 1 }}>
-                Current file
-              </Typography>
-              {companyProfileUrl ? (
-                <Button
-                  variant="outlined"
-                  href={companyProfileUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  size="small"
-                >
-                  Open current profile
-                </Button>
-              ) : (
-                <Typography variant="body2" color="text.secondary">
-                  No company profile uploaded yet.
-                </Typography>
-              )}
-            </Box>
-            <Box
-              component="form"
-              onSubmit={async (e) => {
-                e.preventDefault();
-                const input =
-                  (e.currentTarget.elements.namedItem(
-                    "companyProfile"
-                  ) as HTMLInputElement) || null;
-                const file = input?.files?.[0];
-                if (!file) {
-                  notify("Please choose a PDF file.", "warning");
-                  return;
-                }
-                const formData = new FormData();
-                formData.append("pdf", file);
-                try {
-                  setUploadingProfile(true);
-                  setProfileError(null);
-                  const res = await axios.post(
-                    `${API_BASE}/api/company-profile/`,
-                    formData,
-                    {
-                      headers: {
-                        ...authHeaders(),
-                        "Content-Type": "multipart/form-data",
-                      },
-                    }
-                  );
-                  setCompanyProfileUrl(resolveFileUrl(res.data?.pdf) || null);
-                  if (input) {
-                    input.value = "";
-                  }
-                } catch (err) {
-                  console.error("Error uploading company profile", err);
-                  setProfileError("Could not upload company profile.");
-                } finally {
-                  setUploadingProfile(false);
-                }
-              }}
-              sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}
-            >
-              <Typography variant="subtitle1" fontWeight={600}>
-                Upload new profile
-              </Typography>
-              <input
-                type="file"
-                name="companyProfile"
-                accept="application/pdf"
-                style={{ color: "#fff" }}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={uploadingProfile}
-              >
-                {uploadingProfile ? "Uploading..." : "Save Company Profile"}
-              </Button>
-            </Box>
-          </Paper>
+          <SettingsSection
+            companyProfileUrl={companyProfileUrl}
+            setCompanyProfileUrl={setCompanyProfileUrl}
+            uploadingProfile={uploadingProfile}
+            setUploadingProfile={setUploadingProfile}
+            profileError={profileError}
+            setProfileError={setProfileError}
+            notify={notify}
+            authHeaders={authHeaders}
+            resolveFileUrl={resolveFileUrl}
+          />
         );
       case "Enquiries":
         return (
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h5" mb={2}>
-              Enquiries
-            </Typography>
-            {loadingEnquiries && <Typography>Loading enquiries...</Typography>}
-            {enquiriesError && (
-              <Typography color="error" mb={2}>
-                {enquiriesError}
-              </Typography>
-            )}
-            {!loadingEnquiries && !enquiriesError && enquiries.length === 0 && (
-              <Typography>No enquiries yet.</Typography>
-            )}
-            {!loadingEnquiries && !enquiriesError && enquiries.length > 0 && (
-              <Box sx={{ overflowX: "auto" }}>
-                <Table size="small">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Full name</TableCell>
-                      <TableCell>Email</TableCell>
-                      <TableCell>Phone</TableCell>
-                      <TableCell>Message</TableCell>
-                      <TableCell>Created</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {enquiries.map((e) => (
-                      <TableRow key={e.id} hover>
-                        <TableCell>{e.full_name}</TableCell>
-                        <TableCell>{e.email}</TableCell>
-                        <TableCell>{e.phone || "-"}</TableCell>
-                        <TableCell>{e.message}</TableCell>
-                        <TableCell>
-                          {e.created_at ? new Date(e.created_at).toLocaleString() : "-"}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Box>
-            )}
-          </Paper>
+          <EnquiriesSection
+            enquiries={enquiries}
+            loadingEnquiries={loadingEnquiries}
+            enquiriesError={enquiriesError}
+          />
         );
       default:
         return null;
