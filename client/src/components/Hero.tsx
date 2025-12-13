@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Typography,
   Card,
   CardContent,
-  Grid,
   InputBase,
   IconButton,
   Paper,
+  CircularProgress,
+  Button,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { FaUserTie, FaGraduationCap, FaUsers } from "react-icons/fa6";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import API_BASE from "../apiConfig";
 
 const heroImage =
   "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80";
@@ -37,8 +41,78 @@ const orange = "#ff9800";
 const black = "#111";
 const white = "#fff";
 
-const Hero: React.FC = () => (
-  <Box sx={{ position: "relative", width: "100%", bgcolor: white }}>
+type Opportunity = {
+  id: number;
+  title: string;
+  type: string;
+  description?: string;
+};
+
+const Hero: React.FC = () => {
+  const navigate = useNavigate();
+
+  const [query, setQuery] = useState("");
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [loadingOpps, setLoadingOpps] = useState(false);
+  const [oppsError, setOppsError] = useState<string | null>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  useEffect(() => {
+    const fetchOpps = async () => {
+      try {
+        setLoadingOpps(true);
+        setOppsError(null);
+        const res = await axios.get(`${API_BASE}/api/opportunities/`);
+        setOpportunities(Array.isArray(res.data) ? res.data : []);
+      } catch (err) {
+        console.error("Error loading opportunities", err);
+        setOppsError("Could not load programmes.");
+      } finally {
+        setLoadingOpps(false);
+      }
+    };
+
+    fetchOpps();
+  }, []);
+
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [] as Opportunity[];
+    return opportunities
+      .filter((o) => (o?.title || "").toLowerCase().includes(q))
+      .slice(0, 6);
+  }, [opportunities, query]);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+
+    const first = suggestions[0];
+    if (first?.type && first?.title) {
+      navigate(
+        `/enroll?type=${encodeURIComponent(first.type)}&title=${encodeURIComponent(
+          first.title
+        )}`
+      );
+      return;
+    }
+
+    const lower = q.toLowerCase();
+    if (lower.includes("learn")) {
+      navigate("/learnerships");
+      return;
+    }
+    if (lower.includes("intern")) {
+      navigate("/internships");
+      return;
+    }
+  };
+
+  const showDropdown = isFocused && query.trim().length > 0;
+
+  return (
+    <Box sx={{ position: "relative", width: "100%", bgcolor: white }}>
     {/* Hero Image */}
     <Box
       sx={{
@@ -85,11 +159,12 @@ const Hero: React.FC = () => (
           top: { xs: 90, md: 120 },
           display: "flex",
           justifyContent: "center",
-          zIndex: 2,
+          zIndex: 10,
         }}
       >
         <Paper
           component="form"
+          onSubmit={handleSearchSubmit}
           sx={{
             p: "2px 8px",
             display: "flex",
@@ -105,15 +180,86 @@ const Hero: React.FC = () => (
             sx={{ ml: 1, flex: 1, color: black }}
             placeholder="Search..."
             inputProps={{ "aria-label": "search" }}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => {
+              window.setTimeout(() => setIsFocused(false), 150);
+            }}
           />
           <IconButton
             type="submit"
             sx={{ p: "10px", color: orange }}
             aria-label="search"
           >
-            <SearchIcon />
+            {loadingOpps ? <CircularProgress size={18} sx={{ color: orange }} /> : <SearchIcon />}
           </IconButton>
         </Paper>
+
+        {showDropdown && (
+          <Paper
+            elevation={4}
+            sx={{
+              position: "absolute",
+              top: "calc(100% + 8px)",
+              width: { xs: "90%", md: 500 },
+              borderRadius: 2,
+              overflow: "hidden",
+              border: "1px solid rgba(0,0,0,0.08)",
+              bgcolor: "#fff",
+              zIndex: 11,
+            }}
+          >
+            {oppsError ? (
+              <Box sx={{ p: 1.5 }}>
+                <Typography variant="body2" color="error">
+                  {oppsError}
+                </Typography>
+              </Box>
+            ) : suggestions.length === 0 ? (
+              <Box sx={{ p: 1.5 }}>
+                <Typography variant="body2" color="text.secondary">
+                  No results.
+                </Typography>
+              </Box>
+            ) : (
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                {suggestions.map((o) => (
+                  <Button
+                    key={o.id}
+                    onClick={() => {
+                      navigate(
+                        `/enroll?type=${encodeURIComponent(
+                          o.type
+                        )}&title=${encodeURIComponent(o.title)}`
+                      );
+                    }}
+                    sx={{
+                      justifyContent: "space-between",
+                      textTransform: "none",
+                      color: black,
+                      px: 1.5,
+                      py: 1,
+                      borderRadius: 0,
+                    }}
+                  >
+                    <Box sx={{ minWidth: 0, textAlign: "left" }}>
+                      <Typography variant="body2" fontWeight={600} noWrap>
+                        {o.title}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary" noWrap>
+                        {o.type}
+                      </Typography>
+                    </Box>
+                    <Typography variant="caption" sx={{ color: orange, ml: 2 }}>
+                      Apply
+                    </Typography>
+                  </Button>
+                ))}
+              </Box>
+            )}
+          </Paper>
+        )}
       </Box>
     </Box>
 
@@ -167,7 +313,8 @@ const Hero: React.FC = () => (
         </Card>
       ))}
     </Box>
-  </Box>
-);
+    </Box>
+  );
+};
 
 export default Hero;

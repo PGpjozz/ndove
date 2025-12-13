@@ -42,6 +42,8 @@ const Learnerships: React.FC = () => {
             "linear-gradient(135deg, #fff7e6 0%, #ffe0b3 40%, #ffffff 100%)",
           display: "flex",
           justifyContent: "center",
+          overflowX: "hidden",
+          boxSizing: "border-box",
           py: 6,
           px: { xs: 2, md: 4 },
         }}

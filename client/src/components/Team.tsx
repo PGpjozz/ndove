@@ -43,8 +43,8 @@ const team = [
 const MotionPaper = motion(Paper);
 
 const Team: React.FC = () => (
-  <Box sx={{ bgcolor: "#fafafa", py: 8 }}>
-    <Box sx={{ maxWidth: "1200px", mx: "auto", px: { xs: 2, md: 0 } }}>
+  <Box sx={{ bgcolor: "#fafafa", py: { xs: 6, md: 8 } }}>
+    <Box sx={{ maxWidth: "1200px", mx: "auto", px: { xs: 2, md: 3 } }}>
       <Typography
         variant="h4"
         sx={{ fontWeight: 700, color: black, textAlign: "center", mb: 6 }}
@@ -53,7 +53,7 @@ const Team: React.FC = () => (
       </Typography>
       <Grid container spacing={4} justifyContent="center">
         {team.map((member) => (
-          <Grid item xs={12} sm={6} md={3} lg={2.4} key={member.name}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={member.name}>
             <MotionPaper
               elevation={3}
               whileHover={{ y: -8, boxShadow: "0 12px 24px rgba(0,0,0,0.2)" }}
@@ -63,7 +63,8 @@ const Team: React.FC = () => (
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                py: 3,
+                py: { xs: 2.5, sm: 3 },
+                px: 2,
                 cursor: "pointer",
                 backgroundColor: member.hex,
                 overflow: "hidden",
@@ -73,8 +74,8 @@ const Team: React.FC = () => (
                 src={member.img}
                 alt={member.name}
                 style={{
-                  width: 100,
-                  height: 100,
+                  width: 96,
+                  height: 96,
                   borderRadius: "50%",
                   objectFit: "cover",
                   marginBottom: 12,
@@ -85,7 +86,7 @@ const Team: React.FC = () => (
               <Typography
                 variant="h6"
                 sx={{
-                  color: orange,
+                  color: member.hex === orange ? white : orange,
                   fontWeight: 700,
                   textAlign: "center",
                   mb: 0.5,
@@ -95,7 +96,11 @@ const Team: React.FC = () => (
               </Typography>
               <Typography
                 variant="body2"
-                sx={{ color: black, textAlign: "center", fontWeight: 400 }}
+                sx={{
+                  color: member.hex === orange ? "rgba(255,255,255,0.9)" : black,
+                  textAlign: "center",
+                  fontWeight: 400,
+                }}
               >
                 {member.role}
               </Typography>

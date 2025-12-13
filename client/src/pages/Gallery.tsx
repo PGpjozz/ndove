@@ -4,6 +4,7 @@ import {
   Typography,
   Paper,
   Button,
+  IconButton,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -11,6 +12,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import API_BASE from "../apiConfig";
@@ -74,6 +76,8 @@ const Gallery: React.FC = () => {
           background: "linear-gradient(135deg, #fff7e6 0%, #ffe0b3 40%, #ffffff 100%)",
           display: "flex",
           justifyContent: "center",
+          overflowX: "hidden",
+          boxSizing: "border-box",
           py: 6,
           px: { xs: 2, md: 4 },
         }}
@@ -119,6 +123,8 @@ const Gallery: React.FC = () => {
                 display: "grid",
                 gridTemplateColumns: { xs: "repeat(2, minmax(0, 1fr))", sm: "repeat(2, minmax(0, 1fr))", md: "repeat(3, minmax(0, 1fr))" },
                 gap: { xs: 1.5, sm: 2.5, md: 3 },
+                width: "100%",
+                maxWidth: "100%",
               }}
             >
               {items.map((post) => (
@@ -239,8 +245,38 @@ const Gallery: React.FC = () => {
           >
             {selectedPost && (
               <>
-                <DialogTitle>{selectedPost.title || selectedPost.caption || "Gallery"}</DialogTitle>
-                <DialogContent>
+                <DialogTitle
+                  sx={{
+                    pr: 6,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    gap: 2,
+                  }}
+                >
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography variant="h6" noWrap>
+                      {selectedPost.title || selectedPost.caption || "Gallery"}
+                    </Typography>
+                  </Box>
+                  <IconButton
+                    aria-label="close"
+                    onClick={() => setSelectedPost(null)}
+                    sx={{
+                      ml: "auto",
+                      color: (theme) => theme.palette.grey[600],
+                    }}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </DialogTitle>
+                <DialogContent
+                  dividers
+                  sx={{
+                    overflowX: "hidden",
+                    maxHeight: isMobile ? "calc(100vh - 120px)" : "70vh",
+                  }}
+                >
                   {selectedPost.image && (
                     <Box
                       sx={{

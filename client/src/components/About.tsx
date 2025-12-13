@@ -4,6 +4,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import axios from "axios";
 import enerhuSite from "../assets/enerhu_site.jpg";
 import API_BASE from "../apiConfig";
+import { Link as RouterLink } from "react-router-dom";
 
 const aboutText = `For over a decade, Enerhu has been a leader in skills development and HR solutions for individuals, corporates, and public sector clients across the African continent. Our innovative models focus on practical skills transfer for real-world application, shaping the future workforce through targeted up-skilling of beneficiaries.`;
 
@@ -100,6 +101,8 @@ const About: React.FC = () => {
         </Typography>
         <Button
           variant="contained"
+          component={RouterLink}
+          to="/about-enerhu"
           sx={{
             background: orange,
             color: white,
