@@ -48,7 +48,7 @@ const AboutEnerhu: React.FC = () => {
               fontSize: { xs: "0.95rem", md: "1.1rem" },
             }}
           >
-            Enerhu Business Enterprise was founded in 2018 in Soweto, South
+            Enerhu Business Enterprise was founded in 2018 in Mukhomi, South
             Africa. We provide high-quality consulting, corporate training,
             learnerships, and HR solutions for businesses and individuals across
             South Africa and beyond.

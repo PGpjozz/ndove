@@ -40,29 +40,35 @@ const AdminLogin: React.FC = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh", // fill full viewport height
+        minHeight: "100dvh", // fill full viewport height (mobile-safe)
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: { xs: "flex-start", sm: "center" },
         background: "linear-gradient(135deg, #ff8800, #ffcc66)",
         px: 2,
+        py: 3,
+        boxSizing: "border-box",
+        overflowY: "auto",
       }}
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6 }}
+        style={{ width: "100%", maxWidth: 420 }}
       >
         <Paper
           elevation={12}
           sx={{
-            p: 5,
+            p: { xs: 3, sm: 5 },
             borderRadius: 3,
             width: "100%",
             maxWidth: 400,
             textAlign: "center",
             background: "rgba(255, 255, 255, 0.95)",
             boxShadow: "0 12px 32px rgba(0,0,0,0.25)",
+            maxHeight: "calc(100dvh - 48px)",
+            overflowY: "auto",
           }}
         >
           <Box sx={{ mb: 2, display: "flex", justifyContent: "center" }}>
@@ -82,7 +88,7 @@ const AdminLogin: React.FC = () => {
             variant="h4"
             fontWeight={700}
             mb={3}
-            sx={{ color: "#ff8800" }}
+            sx={{ color: "#ff8800", fontSize: { xs: "1.75rem", sm: "2.125rem" } }}
           >
             Admin Login
           </Typography>
