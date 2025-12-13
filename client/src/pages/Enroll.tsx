@@ -176,7 +176,11 @@ const Enroll: React.FC = () => {
           formData.disabilityStatus
         );
       case 2:
-        return formData.phone && formData.homeAddress && formData.province;
+        return (
+          formData.phone.trim() &&
+          formData.homeAddress &&
+          formData.province
+        );
       case 3:
         return (
           formData.highestQualification &&
@@ -223,7 +227,7 @@ const Enroll: React.FC = () => {
     form.append("home_language", formData.homeLanguage);
     form.append("socio_economic_status", formData.socioEconomicStatus);
     form.append("disability_status", formData.disabilityStatus);
-    form.append("phone", formData.phone);
+    form.append("phone", formData.phone.trim());
     form.append("home_address", formData.homeAddress);
     form.append("province", formData.province);
     form.append("highest_qualification", formData.highestQualification);
