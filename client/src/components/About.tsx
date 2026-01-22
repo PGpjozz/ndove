@@ -6,7 +6,7 @@ import enerhuSite from "../assets/enerhu_site.jpg";
 import API_BASE from "../apiConfig";
 import { Link as RouterLink } from "react-router-dom";
 
-const aboutText = `For over a decade, Enerhu has been a leader in skills development and HR solutions for individuals, corporates, and public sector clients across the African continent. Our innovative models focus on practical skills transfer for real-world application, shaping the future workforce through targeted up-skilling of beneficiaries.`;
+const aboutText = `Enerhu Business Enterprise (Pty) Ltd was established in 2015 as a 100% youth black owned enterprise. We promote and encourage previously disadvantaged communities, especially in rural areas, to participate in economic activities in South Africa through Human Capital Development, consulting services, and accredited Training and Development programmes.`;
 
 const orange = "#ff9800";
 const black = "#111";
@@ -145,6 +145,7 @@ const About: React.FC = () => {
           <img
             src={enerhuSite}
             alt="Enerhu Site"
+            loading="lazy"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </Paper>

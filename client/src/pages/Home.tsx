@@ -7,18 +7,17 @@ import LearnershipsHero from "../components/LearnershipsHero";
 import ClientsAndAccreditations from "../components/ClientsAndAccreditations";
 import PopularCourses from "../components/PopularCourses";
 import Footer from "../components/Footer";
-import Team from "../components/Team";
+
 
 const Home: React.FC = () => (
   <>
     <Navbar />
     <Hero />
+    <ClientsAndAccreditations />
     <About />
     <Learners />
-    <ClientsAndAccreditations />
     <LearnershipsHero />
     <PopularCourses />
-    <Team />
     <Footer />
   </>
 );

@@ -10,6 +10,7 @@ import {
   Link as MuiLink,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
+import { Link as RouterLink } from "react-router-dom";
 import {
   FaFacebookF,
   FaXTwitter,
@@ -18,7 +19,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa6";
 import { motion } from "framer-motion";
-import pjozzLogo from "../assets/pjozz_technologies_logo.png";
+import pjozzLogo from "../assets/pjozz_technologies_logo.svg";
 import qtcoLogo from "../assets/qtco.png";
 import higherEduLogo from "../assets/higher_education_logo.png";
 
@@ -35,12 +36,13 @@ const socialLinks = [
 ];
 
 const quickLinks = [
-  { label: "About Us", url: "#" },
-  { label: "Training Profile", url: "#" },
-  { label: "Privacy Policy", url: "#" },
-  { label: "POPIA Act", url: "#" },
-  { label: "Login", url: "#" },
-  { label: "Qualifications", url: "#" },
+  { label: "Home", url: "/" },
+  { label: "About Us", url: "/about-enerhu" },
+  { label: "Learnerships", url: "/learnerships" },
+  { label: "Internships", url: "/internships" },
+  { label: "Gallery", url: "/gallery" },
+  { label: "Contact", url: "/contact" },
+  { label: "Enroll", url: "/enroll" },
 ];
 
 const MotionBox = motion(Box);
@@ -132,11 +134,13 @@ const Footer: React.FC = () => (
               <img
                 src={qtcoLogo}
                 alt="QCTO Logo"
+                loading="lazy"
                 style={{ width: "100%", borderRadius: 8 }}
               />
               <img
                 src={higherEduLogo}
                 alt="Higher Education Logo"
+                loading="lazy"
                 style={{ width: "100%", borderRadius: 8 }}
               />
               <Box
@@ -149,7 +153,7 @@ const Footer: React.FC = () => (
                 }}
               >
                 <Typography sx={{ color: white, fontSize: 13 }}>
-                  Developed by:
+                  Developed by Pjozz Technologies
                 </Typography>
                 <Box
                   component="img"
@@ -181,10 +185,14 @@ const Footer: React.FC = () => (
             <Typography variant="h6" sx={{ fontWeight: 700, mb: 2 }}>
               Contact Us
             </Typography>
-            <Typography>Stand 298, Mphambo Village, R81 Main Road, Malamulele, 0982</Typography>
-            <Typography sx={{ mt: 1 }}>011 024 9246</Typography>
-            <Typography>061 035 8120</Typography>
-            <Typography sx={{ mt: 1 }}>info@enerhu.co.za</Typography>
+            <Typography>
+              656 Mukhomi Village, Opp Mukhomi Tribal Authority, Malamulele,
+              0982
+            </Typography>
+            <Typography sx={{ mt: 1 }}>Tel: (012) 023 1737</Typography>
+            <Typography>Cell: (071) 149 3310</Typography>
+            <Typography sx={{ mt: 1 }}>rhulanindobe@enerhu.co.za</Typography>
+            <Typography>enerhu@enerhu.co.za</Typography>
           </MotionBox>
         </Grid>
 
@@ -203,7 +211,8 @@ const Footer: React.FC = () => (
               {quickLinks.map((link) => (
                 <MotionLink
                   key={link.label}
-                  href={link.url}
+                  component={RouterLink}
+                  to={link.url}
                   underline="hover"
                   whileHover={{ scale: 1.05, color: orange, ml: 1 }}
                   sx={{ color: white, transition: "0.3s" }}

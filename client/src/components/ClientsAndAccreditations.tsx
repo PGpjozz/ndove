@@ -39,6 +39,13 @@ const ClientsAndAccreditations: React.FC = () => (
       >
         Accredited By
       </Typography>
+      <Typography
+        variant="subtitle1"
+        sx={{ color: black, textAlign: "center", maxWidth: 900, mx: "auto" }}
+      >
+        Our programmes and services align with industry requirements and quality
+        standards.
+      </Typography>
       <Divider
         sx={{
           width: 60,
@@ -74,6 +81,7 @@ const ClientsAndAccreditations: React.FC = () => (
                 component="img"
                 src={acc.img}
                 alt={acc.name}
+                loading="lazy"
                 sx={{ height: "100%", width: "100%", objectFit: "contain" }}
               />
             </MotionPaper>

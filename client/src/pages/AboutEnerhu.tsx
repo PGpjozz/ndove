@@ -48,10 +48,13 @@ const AboutEnerhu: React.FC = () => {
               fontSize: { xs: "0.95rem", md: "1.1rem" },
             }}
           >
-            Enerhu Business Enterprise was founded in 2018 in Mukhomi, South
-            Africa. We provide high-quality consulting, corporate training,
-            learnerships, and HR solutions for businesses and individuals across
-            South Africa and beyond.
+            Enerhu Business Enterprise (Pty) Ltd (2015/268631/07) was
+            established in 2015 as a 100% youth black owned enterprise.
+            We promote and encourage previously disadvantaged communities,
+            especially in rural areas, to participate in economic activities in
+            South Africa. Our primary focus is Human Capital Development,
+            consulting services, and Training and Development (learnerships,
+            internships, short learning programmes, and apprenticeships).
           </Typography>
         </Box>
 
@@ -64,16 +67,16 @@ const AboutEnerhu: React.FC = () => {
             Our History
           </Typography>
           <Typography variant="body1" sx={{ color: black, mb: 2 }}>
-            Enerhu started with a small team focused on empowering individuals
-            through education and business solutions. Over the years, we have
-            expanded our footprint to multiple provinces, partnering with
-            organizations and professional bodies to deliver impactful training
-            and consulting services.
+            Enerhu Business Enterprise was founded to unlock opportunity through
+            extraordinary business relations and practical skills development.
+            Our work focuses on creating sustainable jobs, supporting SMMEs, and
+            closing unemployment gaps by implementing learnerships, internships,
+            skills programmes, and business solutions.
           </Typography>
           <Typography variant="body1" sx={{ color: black }}>
-            Today, Enerhu is recognized for its accredited programs, diverse
-            portfolio of courses, and commitment to excellence in training and
-            consulting.
+            We are continuously expanding our service offering through dedicated
+            divisions designed to ensure that no client or community need is left
+            unattended.
           </Typography>
         </Box>
 
@@ -96,9 +99,7 @@ const AboutEnerhu: React.FC = () => {
                 Vision
               </Typography>
               <Typography variant="body1" sx={{ color: black }}>
-                To make consulting, training, and online learning fun,
-                affordable, and impactful, addressing both immediate and
-                long-term needs of society.
+                To be a preferred extraordinary service provider.
               </Typography>
             </Box>
           </Grid>
@@ -119,9 +120,12 @@ const AboutEnerhu: React.FC = () => {
                 Mission
               </Typography>
               <Typography variant="body1" sx={{ color: black }}>
-                To remain at the cutting edge of technology and education,
-                offering outstanding consulting and well-rounded academic
-                programs.
+                To be a pillar in the development of local communities, regional
+                structures, provincial and national sectors by offering extra
+                ordinary business relations that will unlock doors in the
+                international markets, thereby ensuring sustainable jobs more
+                especially in our rural communities, South Africa, Africa and
+                the world.
               </Typography>
             </Box>
           </Grid>
@@ -180,23 +184,140 @@ const AboutEnerhu: React.FC = () => {
           </ul>
         </Box>
 
+        <Box>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 700, color: orange, mb: 2 }}
+          >
+            Our Services
+          </Typography>
+          <Typography variant="body1" sx={{ color: black, mb: 3 }}>
+            We have expanded our service offering through various divisions
+            dedicated to catering for the majority of business needs in our
+            communities.
+          </Typography>
+
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 700, color: orange, mb: 1 }}
+          >
+            Enerhu Training Solutions
+          </Typography>
+          <Typography variant="body1" sx={{ color: black, mb: 2 }}>
+            A National and International Accredited training provider capable of
+            translating and implementing skills development initiatives for
+            improvement of business drivers and objectives.
+          </Typography>
+          <ul style={{ paddingLeft: "1.5rem", color: black, fontSize: "1rem" }}>
+            <li>Skills Development Services</li>
+            <li>Accreditation and Quality Assurance</li>
+            <li>Assessment and Moderation Services</li>
+            <li>Workshops and Seminars</li>
+            <li>Recruitment and Candidate Selection</li>
+            <li>Learnership and Internship Implementation</li>
+            <li>Graduate Placement and Hosting</li>
+            <li>Project Management Services</li>
+            <li>Basic and Technical ICT Training</li>
+            <li>ODETDP: Train the Trainer, Facilitator, Assessor and Moderator</li>
+            <li>International Exam Facilitation</li>
+            <li>Construction Related Training Programmes</li>
+            <li>Clothing Manufacturing and New Venture Creation</li>
+          </ul>
+
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 700, color: orange, mt: 4, mb: 1 }}
+          >
+            Enerhu Technologies
+          </Typography>
+          <Typography variant="body1" sx={{ color: black, mb: 2 }}>
+            This division focuses on the implementation and maintenance of IT
+            infrastructures at both small and large scale.
+          </Typography>
+          <ul style={{ paddingLeft: "1.5rem", color: black, fontSize: "1rem" }}>
+            <li>IT Networking</li>
+            <li>IT Infrastructure Support</li>
+            <li>IT Maintenance and Upgrade</li>
+            <li>IT Outsourcing Services</li>
+          </ul>
+        </Box>
+
+        <Box>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 700, color: orange, mb: 2 }}
+          >
+            Accreditations
+          </Typography>
+          <Typography variant="body1" sx={{ color: black, mb: 2 }}>
+            We are accredited with multiple professional bodies and SETAs,
+            including Service SETA, CETA, FP&amp;M SETA, AgriSETA, Bank SETA,
+            QCTO, and MICT SETA.
+          </Typography>
+        </Box>
+
+        <Box>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: 700, color: orange, mb: 2 }}
+          >
+            Addresses & Contacts
+          </Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" sx={{ fontWeight: 700, color: black, mb: 1 }}>
+                Gauteng Office
+              </Typography>
+              <Typography variant="body1" sx={{ color: black }}>
+                21st Floor, 222 Smit Street, Braamfontein, Johannesburg
+              </Typography>
+              <Typography variant="body1" sx={{ color: black, mt: 1 }}>
+                Tel: (010) 005 4500
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" sx={{ fontWeight: 700, color: black, mb: 1 }}>
+                Limpopo Head Office
+              </Typography>
+              <Typography variant="body1" sx={{ color: black }}>
+                656 Mukhomi Village, Opp Mukhomi Tribal Authority, Malamulele,
+                0982
+              </Typography>
+              <Typography variant="body1" sx={{ color: black, mt: 1 }}>
+                Tel: (012) 023 1737
+              </Typography>
+              <Typography variant="body1" sx={{ color: black }}>
+                Cell: (071) 149 3310
+              </Typography>
+              <Typography variant="body1" sx={{ color: black }}>
+                Fax: (086) 690 2899
+              </Typography>
+              <Typography variant="body1" sx={{ color: black, mt: 1 }}>
+                Email: rhulanindobe@enerhu.co.za
+              </Typography>
+              <Typography variant="body1" sx={{ color: black }}>
+                Email: enerhu@enerhu.co.za
+              </Typography>
+            </Grid>
+          </Grid>
+        </Box>
+
         {/* Strategic Intent */}
         <Box>
           <Typography
             variant="h4"
             sx={{ fontWeight: 700, color: orange, mb: 2 }}
           >
-            Strategic Intent
+            Conclusion
           </Typography>
           <Typography
             variant="body1"
             sx={{ color: black, fontSize: { xs: "0.95rem", md: "1.1rem" } }}
           >
-            Enerhu is dedicated to providing world-class business services that
-            help clients become more strategic, productive, and profitable. We
-            aim to improve productivity, reduce costs, and add value to every
-            client’s operations. Our CSR efforts uplift communities, create
-            local economic opportunities, and generate jobs.
+            We have achieved satisfactory performance, exceeding client
+            requirements. We will continue to promote and expand our activities
+            to support SMMEs and close unemployment gaps, especially in rural
+            communities.
           </Typography>
         </Box>
       </Box>

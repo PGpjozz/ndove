@@ -21,18 +21,18 @@ const heroImage =
 
 const cardData = [
   {
-    title: "Consulting Services",
-    desc: "Expert advice and solutions tailored to your business needs.",
+    title: "Training Solutions",
+    desc: "Accredited skills development, learnership and internship implementation.",
     icon: <FaUserTie size={40} color="#fff" />,
   },
   {
-    title: "Learnerships",
-    desc: "Empowering individuals through structured learning programs.",
+    title: "Human Capital Development",
+    desc: "Practical training, consulting support, and workforce development.",
     icon: <FaGraduationCap size={40} color="#fff" />,
   },
   {
-    title: "Human Resource Solutions",
-    desc: "Comprehensive HR services for organizational growth.",
+    title: "Enerhu Technologies",
+    desc: "IT infrastructure implementation, maintenance, upgrades, and outsourcing.",
     icon: <FaUsers size={40} color="#fff" />,
   },
 ];
@@ -117,7 +117,7 @@ const Hero: React.FC = () => {
     <Box
       sx={{
         width: "100%",
-        height: { xs: 260, md: 340 },
+        height: { xs: 360, md: 420 },
         backgroundImage: `url(${heroImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -136,18 +136,73 @@ const Hero: React.FC = () => {
           justifyContent: "center",
         }}
       >
-        <Typography
-          variant="h5"
-          sx={{
-            color: white,
-            fontWeight: 500,
-            textShadow: "0 2px 8px rgba(0,0,0,0.7)",
-            textAlign: "center",
-            letterSpacing: 1,
-          }}
-        >
-          Taking the lead, shaping the future
-        </Typography>
+        <Box sx={{ textAlign: "center", px: 2 }}>
+          <Typography
+            variant="h4"
+            sx={{
+              color: white,
+              fontWeight: 800,
+              textShadow: "0 2px 10px rgba(0,0,0,0.75)",
+              letterSpacing: 0.5,
+              fontSize: { xs: "1.4rem", md: "2.1rem" },
+              lineHeight: 1.2,
+            }}
+          >
+            We do business the extraordinary way
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              mt: 1,
+              color: white,
+              textShadow: "0 2px 10px rgba(0,0,0,0.75)",
+              maxWidth: 820,
+              mx: "auto",
+              fontSize: { xs: "0.95rem", md: "1.05rem" },
+            }}
+          >
+            Accredited training, learnership and internship implementation, and
+            practical workforce development.
+          </Typography>
+          <Box
+            sx={{
+              mt: 2,
+              display: "flex",
+              justifyContent: "center",
+              gap: 1.5,
+              flexWrap: "wrap",
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={() => navigate("/contact")}
+              sx={{
+                background: orange,
+                color: white,
+                fontWeight: 700,
+                textTransform: "none",
+                px: 3,
+                "&:hover": { background: "#e67600" },
+              }}
+            >
+              Enquire Now
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => navigate("/about-enerhu")}
+              sx={{
+                borderColor: "rgba(255,255,255,0.9)",
+                color: white,
+                fontWeight: 700,
+                textTransform: "none",
+                px: 3,
+                "&:hover": { borderColor: white, background: "rgba(0,0,0,0.15)" },
+              }}
+            >
+              About Enerhu
+            </Button>
+          </Box>
+        </Box>
       </Box>
 
       {/* Search Bar */}
@@ -156,7 +211,7 @@ const Hero: React.FC = () => {
           position: "absolute",
           left: 0,
           right: 0,
-          top: { xs: 90, md: 120 },
+          top: { xs: 220, md: 220 },
           display: "flex",
           justifyContent: "center",
           zIndex: 10,

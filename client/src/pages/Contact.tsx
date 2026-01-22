@@ -100,8 +100,8 @@ const Contact: React.FC = () => {
               color: "text.secondary",
             }}
           >
-            We would love to hear from you. Reach out for learnerships, training
-            or business partnerships.
+            We would love to hear from you. Reach out for learnerships, training,
+            consulting services or business partnerships.
           </Typography>
 
           <Grid
@@ -143,17 +143,25 @@ const Contact: React.FC = () => {
               >
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <EmailIcon sx={{ color: orange }} />
-                  <Typography
-                    variant="body2"
-                    sx={{ color: black, wordBreak: "break-word" }}
-                  >
-                    info@enerhu.co.za
-                  </Typography>
+                  <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: black, wordBreak: "break-word" }}
+                    >
+                      enerhu@enerhu.co.za
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: black, wordBreak: "break-word" }}
+                    >
+                      rhulanindobe@enerhu.co.za
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <PhoneIcon sx={{ color: orange }} />
                   <Typography variant="body2" sx={{ color: black }}>
-                    +27 00 000 0000
+                    (012) 023 1737 / (071) 149 3310
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1 }}>
@@ -162,7 +170,8 @@ const Contact: React.FC = () => {
                     variant="body2"
                     sx={{ color: black, maxWidth: 260 }}
                   >
-                    Stand 298, Mphambo Village, R81 Main Road, Malamulele, 0982
+                    656 Mukhomi Village, Opp Mukhomi Tribal Authority,
+                    Malamulele, 0982
                   </Typography>
                 </Box>
               </Box>

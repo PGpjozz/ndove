@@ -61,6 +61,7 @@ const Learners: React.FC = () => (
                 <img
                   src={learner.img}
                   alt={learner.name}
+                  loading="lazy"
                   style={{
                     width: "100%",
                     height: "100%",
